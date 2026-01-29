@@ -1,0 +1,17 @@
+name: TK Home Super AI SEO
+on:
+  schedule:
+    - cron: '30 2 * * *' # Rozana subah 8:00 AM IST
+  workflow_dispatch:
+jobs:
+  automation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run AI SEO Bot
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+          REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN }}
+        run: python scripts/daily_engine.py
