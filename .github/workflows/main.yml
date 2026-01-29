@@ -1,23 +1,36 @@
-# 🏛️ TK HOME TUITION : AI SEO SUPREMACY
-> **Local SEO Engine for Jaipur** | **Status:** 🟢 OPERATIONAL | **ID:** tkhometuition@gmail.com
+name: TK-Home-Fast-SEO-Engine
 
----
+on:
+  schedule:
+    - cron: '*/15 * * * *' 
+  workflow_dispatch:
 
-### 📊 BUSINESS ENGINE OVERVIEW
-| FEATURE | STATUS | AI INTEL |
-| :--- | :--- | :--- |
-| 🚀 **GMB Auto-Post** | ![Active](https://img.shields.io/badge/-LIVE-brightgreen) | Gemini 1.5 Flash |
-| 🤖 **Review Reply** | ![Active](https://img.shields.io/badge/-AUTO-blue) | 3-15 Min Response |
-| 📈 **Rank Pushing** | ![Targeting](https://img.shields.io/badge/-JAIPUR-orange) | Mansarovar / Vaishali |
-| 🛡️ **NAP Health** | ![Verified](https://img.shields.io/badge/-9672616854-lightgrey) | +91 9672616854 |
+jobs:
+  seo_fast_track:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Ye permission dashboard update karne ke liye hai
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4 
 
----
+      - name: Set up Python
+        uses: actions/setup-python@v5 
+        with:
+          python-version: '3.9'
 
-### 🛠️ 100-POINT SEO PERFORMANCE SCORECARD
-- [x] **On-Page SEO:** Primary Keywords in Titles (100%)
-- [x] **Technical SEO:** Daily Post Velocity (8:30 AM)
-- [x] **Local Trust:** Review Replies by Customer Name (AI-Powered)
+      - name: Run TK AI Engine
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+          REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN }}
+        run: python scripts/daily_engine.py
 
----
-### 📞 ADMIN COMMAND CENTER
-**Owner:** TK Home Tuition | **Phone:** +91 9672616854 | **Automation:** GitHub Actions
+      - name: Auto-Update Sexy Dashboard
+        run: |
+          git config --global user.name "TK-SEO-BOT"
+          git config --global user.email "tkhometuition@gmail.com"
+          git add README.md
+          git commit -m "AI SEO Update: $(date)" || echo "No changes"
+          git push
