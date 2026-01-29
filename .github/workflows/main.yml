@@ -1,13 +1,25 @@
-name: TK-Home-Final-SEO
+name: TK-Home-Fast-SEO-Engine
+
 on:
   schedule:
-    - cron: '30 2 * * *' # Subah 8:00 AM IST
-  workflow_dispatch:
+    - cron: '*/5 * * * *' # Ye har 5 minute mein engine ko jagayega
+  workflow_dispatch: # Manual button ke liye
+
 jobs:
-  seo_job:
+  seo_fast_track:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install Requests
+        run: pip install requests
+
       - name: Run TK AI Engine
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
